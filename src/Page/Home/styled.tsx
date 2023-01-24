@@ -9,6 +9,8 @@ export const Container = styled.div`
     margin: 80px 200px ;
     background-color: #FEFCF3;
     padding: 12px;
+    background-color: #0093E9;
+
 
 `
 
@@ -32,6 +34,7 @@ input{
     width: 190px;
     height: 25px;
     border: solid 1px #c5ced5;
+    border-radius: 6px;
 }
 
 button{
@@ -44,10 +47,5 @@ button{
     border-radius: 2px;
     margin-left: 5px;
 }
-
-`
-
-export const NameGenerator = styled.div`
-
 
 `

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Box, NameGenerator } from "./styled";
+import { Container, Box,  } from "./styled";
 import { FcCancel, FcUndo } from "react-icons/fc";
 
 
@@ -12,7 +12,6 @@ export default function Home() {
 
     const [storageName, setStorageName] = useState('')
     const [saveName, setSaveNames] = useState([])
-    const [erased, setErased] = useState([])
 
     function HandleName() {
         const ArmazenName = storageName; 
@@ -24,10 +23,8 @@ export default function Home() {
         }else{
              setStorageName("");
              setSaveNames(prevState => [...prevState, ArmazenName]);
-
         }
-        
-        
+    
     }
 
 
@@ -49,14 +46,14 @@ export default function Home() {
                     </div>
                     <input type="text" value={storageName}  placeholder="Nome" onChange={(e) => setStorageName(e.target.value)} />
                     <button onClick={HandleName}>Salvar</button>
-                    <NameGenerator>
+                    <div>
                         <ul>
                             {saveName.map(name => <li>{name}
                             <FcCancel onClick={() => HandleErased(name)}/>
                             </li>)}
                         </ul>
 
-                    </NameGenerator>
+                    </div>
 
                 </Box>
             </Container>
