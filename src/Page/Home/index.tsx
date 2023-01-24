@@ -15,16 +15,31 @@ export default function Home() {
     const [erased, setErased] = useState([])
 
     function HandleName() {
-        const ArmazenName = storageName;
+        const ArmazenName = storageName; 
+        const Findword = saveName.find(word => word == storageName)
+        if( storageName == ""){
+        return alert ('Insira um nome')
+        } else if(Findword){
+            alert('esta palavra ja existe')
+        }else{
+             setStorageName("");
+             setSaveNames(prevState => [...prevState, ArmazenName]);
 
-        setSaveNames(prevState => [...prevState, ArmazenName])
+        }
+        
+        
     }
 
-    function HandleErased(){
-        setSaveNames([erased])
+
+
+    const HandleErased = (a) => {
+    const RemoveWord = saveName.filter(nameSave => nameSave !== a )
+    setSaveNames(RemoveWord)
+   
+
     }
   
-    console.log(storageName)
+   
     return (
         <>
             <Container>
@@ -32,13 +47,13 @@ export default function Home() {
                     <div>
                         <span>Insira um nome</span>
                     </div>
-                    <input type="text" name="" id="" placeholder="Nome" onChange={(e) => setStorageName(e.target.value)} />
+                    <input type="text" value={storageName}  placeholder="Nome" onChange={(e) => setStorageName(e.target.value)} />
                     <button onClick={HandleName}>Salvar</button>
                     <NameGenerator>
                         <ul>
-                            
-                            {saveName.map(name => <li>{name}<FcCancel onClick={HandleErased} /></li>)}
-
+                            {saveName.map(name => <li>{name}
+                            <FcCancel onClick={() => HandleErased(name)}/>
+                            </li>)}
                         </ul>
 
                     </NameGenerator>

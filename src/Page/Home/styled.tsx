@@ -48,8 +48,6 @@ button{
 `
 
 export const NameGenerator = styled.div`
-ul{
-    gap: 10px;
-}
+
 
 `
