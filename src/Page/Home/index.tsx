@@ -1,42 +1,32 @@
-import React, { useState } from "react";
-import { Container, Box,  } from "./styled";
-import { FcCancel, FcUndo } from "react-icons/fc";
+import React, { useEffect, useState } from "react";
+import { Container, Box, ContainerUsers, Users  } from "./styled";
 
-
-interface SetNames {
-    storageName: string;
-    erased:any;
-}
 
 export default function Home() {
 
     const [storageName, setStorageName] = useState('')
-    const [saveName, setSaveNames] = useState([])
+    const [users, setUsers] = useState([])
 
+    
     function HandleName() {
-        const ArmazenName = storageName; 
-        const Findword = saveName.find(word => word == storageName)
+        const armazenName = storageName; 
+        const names = users;
         if( storageName == ""){
         return alert ('Insira um nome')
-        } else if(Findword){
-            alert('esta palavra ja existe')
-        }else{
-             setStorageName("");
-             setSaveNames(prevState => [...prevState, ArmazenName]);
+        } else{
+            setStorageName("");
+            console.log(names)
+        }   
         }
+
+console.log(users)
+
+    useEffect (() => {
+    fetch("https://randomuser.me/api/?seed=javascript&results=100&nat=BR&noinfo")
+    .then((res) => res.json()).then(data => setUsers(data.results)) 
+    },[])
     
-    }
 
-
-
-    const HandleErased = (a) => {
-    const RemoveWord = saveName.filter(nameSave => nameSave !== a )
-    setSaveNames(RemoveWord)
-   
-
-    }
-  
-   
     return (
         <>
             <Container>
@@ -45,16 +35,18 @@ export default function Home() {
                         <span>Insira um nome</span>
                     </div>
                     <input type="text" value={storageName}  placeholder="Nome" onChange={(e) => setStorageName(e.target.value)} />
-                    <button onClick={HandleName}>Salvar</button>
-                    <div>
-                        <ul>
-                            {saveName.map(name => <li>{name}
-                            <FcCancel onClick={() => HandleErased(name)}/>
-                            </li>)}
-                        </ul>
-
-                    </div>
-
+                    <button onClick={HandleName}>Pesquisar</button>
+                   {users.map( (user) => <ContainerUsers> 
+                            <div>
+                            <img src={user.picture.thumbnail}  />
+                            </div>
+                            <Users>
+                            <label>{user.name.first} {user.name.last}</label>
+                            <span>{user.dob.age} anos</span>
+                            <span> cpf : {user.id.value}</span>
+                          </Users>
+                    </ContainerUsers>
+                   )}
                 </Box>
             </Container>
         </>
