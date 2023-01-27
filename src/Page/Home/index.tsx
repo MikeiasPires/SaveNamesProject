@@ -6,25 +6,28 @@ export default function Home() {
 
     const [storageName, setStorageName] = useState('')
     const [users, setUsers] = useState([])
+    const [item, setItem] = useState([])
 
+   const filteredData = item.length > 1 ? item : users;
+   console.log(item)
     
     function HandleName() {
-        const armazenName = storageName; 
-        const names = users;
+        const filtros = users.map(item => item.name).filter(item => item.first == storageName);
+        setItem(filtros)
         if( storageName == ""){
         return alert ('Insira um nome')
-        } else{
-            setStorageName("");
-            console.log(names)
-        }   
-        }
+        }else{
+            setStorageName("");     
 
-console.log(users)
+        }  
+        }
+     
 
     useEffect (() => {
     fetch("https://randomuser.me/api/?seed=javascript&results=100&nat=BR&noinfo")
     .then((res) => res.json()).then(data => setUsers(data.results)) 
-    },[])
+    },[]);
+
     
 
     return (
@@ -36,7 +39,7 @@ console.log(users)
                     </div>
                     <input type="text" value={storageName}  placeholder="Nome" onChange={(e) => setStorageName(e.target.value)} />
                     <button onClick={HandleName}>Pesquisar</button>
-                   {users.map( (user) => <ContainerUsers> 
+                   {filteredData.map( (user) => <ContainerUsers key={user.picture}> 
                             <div>
                             <img src={user.picture.thumbnail}  />
                             </div>
