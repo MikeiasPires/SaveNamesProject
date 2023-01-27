@@ -7,16 +7,14 @@ export default function Home() {
     const [storageName, setStorageName] = useState('')
     const [users, setUsers] = useState([])
     const [item, setItem] = useState([])
-
-   const filteredData = item.length > 1 ? item : users;
-   console.log(item)
     
     function HandleName() {
         const filtros = users.map(item => item.name).filter(item => item.first == storageName);
         setItem(filtros)
         if( storageName == ""){
         return alert ('Insira um nome')
-        }else{
+        }else if(filtros == item){
+            setItem(item)
             setStorageName("");     
 
         }  
@@ -39,7 +37,7 @@ export default function Home() {
                     </div>
                     <input type="text" value={storageName}  placeholder="Nome" onChange={(e) => setStorageName(e.target.value)} />
                     <button onClick={HandleName}>Pesquisar</button>
-                   {filteredData.map( (user) => <ContainerUsers key={user.picture}> 
+                   {item.map( (user) => <ContainerUsers key={user.picture}> 
                             <div>
                             <img src={user.picture.thumbnail}  />
                             </div>
