@@ -6,45 +6,51 @@ export default function Home() {
 
     const [storageName, setStorageName] = useState('')
     const [users, setUsers] = useState([])
+    const [usersten, setUsersten] = useState([])
     const [filtedUser, setFiltedUser] = useState([])
     const [filterNames, setFilterNames] = useState([])
     
-   
-
         function handleSearch() {
-        const Filtered = users.filter(item => item.name.first === storageName);
-        setFiltedUser(Filtered);
+        const filtered = users.filter(item => item.name.first === storageName);
+        setFiltedUser(filtered);
         if( storageName == ""){
          return alert ('Insira um nome')
          }else {
          setStorageName("");    
         }  
+        };
+
+        function Clickten(){
+            const comp = users.filter 
         }
-   
 
-    useEffect (() => {
-    fetch("https://randomuser.me/api/?seed=javascript&results=100&nat=BR&noinfo")
-    .then((res) => res.json()).then(data => {
-        setUsers(data.results),
-        setFiltedUser(data.results)
-        setFilterNames(data.results)
-    }
-        
-        ) 
-    },[]);
+       useEffect (() => {
+        const seach = users.filter(n => n.name.first === storageName);
+        setFilterNames(seach);
 
-    useEffect (() => {
-        const Reposição = users.map((repo) => { return repo.name.first})
-        const Search = Reposição.filter((repo) => repo.includes(storageName))
-        setFilterNames(Search);
+       },[])
 
-     //  const repositor = users.filter(item => item.name.first);
-      // const Search = repositor.filter(item => item.name.first.includes(storageName));
-     //  setFilterNames(Search);
-      // console.log(filterNames)
-    },[]);
+        useEffect (() => {
+            fetch("https://randomuser.me/api/?seed=javascript&results=100&nat=BR&noinfo")
+           .then((res) => res.json()).then(data => {
+            setUsers(data.results),
+            setFiltedUser(data.results)
+            setFilterNames(data.results)
+            }
+            
+            ) 
+            },[]);
+
+                useEffect (() => {
+                    fetch("https://randomuser.me/api/?seed=javascript&results=10&nat=BR&noinfo")
+                   .then((res) => res.json()).then(data => {
+                    setUsersten(data.results)
+                    }
+                    
+                    ) 
+                    },[]);
     
-
+ console.log(usersten)
     return (
         <>
             <Container>
@@ -54,7 +60,15 @@ export default function Home() {
                     </div>
                     <input type="text" value={storageName}  placeholder="Nome" onChange={(e) => setStorageName(e.target.value)} />
                     <button onClick={handleSearch}>Pesquisar</button>
-                   {filtedUser.map( (user) => <ContainerUsers key={user.email}> 
+                    <div>
+                        <label >Quantidade</label>
+                            <select name="Quantidade" id="">
+                                <option onClick={Clickten}>10</option>
+                                <option value="">50</option>
+                                <option value="">100</option>
+                            </select>
+                           </div>
+                   {  filterNames.map( (user) => <ContainerUsers key={user.email}> 
                             <div>
                             <img src={user.picture.thumbnail}  />
                             </div>
@@ -65,6 +79,7 @@ export default function Home() {
                           </Users>
                     </ContainerUsers>
                    )}
+                     
                 </Box>
             </Container>
         </>
