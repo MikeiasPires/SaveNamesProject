@@ -9,9 +9,8 @@ export default function Home() {
     const [filtedUser, setFiltedUser] = useState([])
     const [filterNames, setFilterNames] = useState([]);
     const [filterNamesFity, setfilterNamesFity] = useState([]);
-    const [usersten, setUsersten] = useState(10)
+    const [usersten, setUsersten] = useState(0)
 
-    
         function handleSearch() {
         const filtered = users.filter(item => item.name.first === storageName);
         setFiltedUser(filtered);
@@ -22,6 +21,11 @@ export default function Home() {
         }  
         };
 
+        function handleinput(e){
+            setStorageName(e.target.value)
+            const seach = users.filter(item => item.name.first.toLowerCase().includes(storageName.toLowerCase()))
+            setFiltedUser(seach)
+        }
 
         function selectionNumberUsers(e){
             setUsersten(e.target.value);
@@ -66,7 +70,7 @@ export default function Home() {
                     <div>
                         <span>Insira um nome</span>
                     </div>
-                    <input type="text" value={storageName}  placeholder="Nome" onChange={(e) => setStorageName(e.target.value)} />
+                    <input type="text" value={storageName}  placeholder="Nome" onChange={handleinput} />
                     <button onClick={handleSearch}>Pesquisar</button>
                     <div>
                         <label >Quantidade</label>
